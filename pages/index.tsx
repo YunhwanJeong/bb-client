@@ -1,4 +1,10 @@
 import Head from "next/head";
+import styled from "styled-components";
+
+const Title = styled.h1`
+  font-size: 50px;
+  color: red;
+`;
 
 const Home = () => {
   return (
@@ -6,7 +12,7 @@ const Home = () => {
       <Head>
         <title>Buzzer Beater</title>
       </Head>
-      <h1>hello world</h1>
+      <Title>hello world</Title>
     </>
   );
 };
