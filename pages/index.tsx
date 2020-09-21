@@ -1,22 +1,27 @@
 import Head from "next/head";
 import styled from "styled-components";
-import { useUsersQuery } from "../generated/graphql";
+import Button from "../components/Button";
 
-const Title = styled.h1`
-  font-size: 50px;
-  color: red;
+const AppBlock = styled.div`
+  width: 512px;
+  margin: 0 auto;
+  margin-top: 4rem;
+  border: 1px solid black;
+  padding: 1rem;
 `;
 
 const Home = () => {
-  const { data, loading } = useUsersQuery();
-  if (!loading) console.log(data);
-
   return (
     <>
       <Head>
         <title>Buzzer Beater</title>
       </Head>
-      <Title>hello world</Title>
+      <AppBlock>
+        <Button color="gray" outline={false}>
+          Sign In
+        </Button>
+        <Button>Sign Up</Button>
+      </AppBlock>
     </>
   );
 };
