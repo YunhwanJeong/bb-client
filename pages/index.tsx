@@ -1,6 +1,7 @@
 import Head from "next/head";
+import Link from "next/link";
 import styled from "styled-components";
-import Button from "../components/Button";
+import Anchor from "../components/Anchor";
 
 const AppBlock = styled.div`
   width: 512px;
@@ -17,10 +18,12 @@ const Home = () => {
         <title>Buzzer Beater</title>
       </Head>
       <AppBlock>
-        <Button color="gray" outline={false}>
+        <Anchor color="gray" outline={false}>
           Sign In
-        </Button>
-        <Button>Sign Up</Button>
+        </Anchor>
+        <Link href="/signup" passHref>
+          <Anchor>Sign Up</Anchor>
+        </Link>
       </AppBlock>
     </>
   );
