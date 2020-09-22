@@ -25,6 +25,9 @@ const GlobalStyle = createGlobalStyle`
   footer, header, hgroup, menu, nav, section {
       display: block;
   }
+  html, body, #__next {
+      height: 100%;
+  }
   body {
       line-height: 1;
       font-size: 62.5%;
@@ -43,6 +46,16 @@ const GlobalStyle = createGlobalStyle`
   table {
       border-collapse: collapse;
       border-spacing: 0;
+  }
+  a {
+    color: #fff;
+    text-decoration: none;
+    outline: none
+  }
+  a:hover, a:active {
+    text-decoration: none;
+    color:#fff;
+    background-color:#f59000;
   }
 `;
 
