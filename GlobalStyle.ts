@@ -25,12 +25,19 @@ const GlobalStyle = createGlobalStyle`
   footer, header, hgroup, menu, nav, section {
       display: block;
   }
+  * {
+      box-sizing: inherit;
+  }
   html, body, #__next {
       height: 100%;
   }
+  html {
+      font-size: 62.5%;
+  }
   body {
       line-height: 1;
-      font-size: 62.5%;
+      font-family: 'Noto Sans KR', sans-serif;
+      box-sizing: border-box;
   }
   ol, ul {
       list-style: none;
@@ -48,14 +55,24 @@ const GlobalStyle = createGlobalStyle`
       border-spacing: 0;
   }
   a {
-    color: #fff;
+    color: inherit;
     text-decoration: none;
     outline: none
   }
   a:hover, a:active {
     text-decoration: none;
-    color:#fff;
-    background-color:#f59000;
+  }
+  input {
+    appearance: none;
+    margin: 0;
+    padding: 0;
+  }
+  input:focus {
+    outline: 0;
+  }
+  @font-face {
+      font-family: "Gmarket Sans";
+      src: local("/static/fonts");
   }
 `;
 
