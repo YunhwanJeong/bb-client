@@ -18,7 +18,7 @@ const Home = () => {
         <title>Buzzer Beater</title>
       </Head>
       <AppBlock>
-        <Anchor color="gray" outline={false}>
+        <Anchor color="gray7" outline={false}>
           Sign In
         </Anchor>
         <Link href="/signup" passHref>
