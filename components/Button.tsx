@@ -5,16 +5,16 @@ import { theme } from "../lib/types";
 
 const buttonSize = {
   large: {
-    height: "3rem",
-    fontSize: "1.25rem",
+    height: "4.8rem",
+    fontSize: "1.5rem",
   },
   medium: {
-    height: "2.25rem",
-    fontSize: "1rem",
+    height: "3.6rem",
+    fontSize: "1.3rem",
   },
   small: {
-    height: "1.75rem",
-    fontSize: "0.875rem",
+    height: "2.8rem",
+    fontSize: "1.1rem",
   },
 };
 const sizeStyles = css`
@@ -46,7 +46,7 @@ const colorStyles = css`
         css`
           color: ${selected};
           background: none;
-          border: 1px solid ${selected};
+          border: 2px solid ${selected};
           &:hover {
             background: ${lighten(0.1, selected)};
             color: white;
@@ -84,7 +84,7 @@ const fullWidthStyles = css`
       justify-content: center;
       &:not(:first-child) {
         margin-left: 0;
-        margin-top: 1rem;
+        margin-top: 1.6rem;
       }
     `}
 `;
@@ -94,12 +94,12 @@ const StyledButton = styled.button`
   display: inline-flex;
   outline: none;
   border: none;
-  border-radius: 4px;
+  border-radius: 10px;
   color: white;
   font-weight: bold;
   cursor: pointer;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding-left: 1.6rem;
+  padding-right: 1.6rem;
   align-items: center;
 
   /* 크기 */
@@ -110,7 +110,7 @@ const StyledButton = styled.button`
 
   /* 기타 */
   &:not(:first-child) {
-    margin-left: 1rem;
+    margin-left: 1.6rem;
   }
 
   ${fullWidthStyles}

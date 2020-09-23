@@ -6,16 +6,16 @@ import { theme } from "../lib/types";
 
 const anchorSize = {
   large: {
-    height: "3rem",
-    fontSize: "1.25rem",
+    height: "4.8rem",
+    fontSize: "1.5rem",
   },
   medium: {
-    height: "2.25rem",
-    fontSize: "1rem",
+    height: "3.6rem",
+    fontSize: "1.3rem",
   },
   small: {
-    height: "1.75rem",
-    fontSize: "0.875rem",
+    height: "2.8rem",
+    fontSize: "1.1rem",
   },
 };
 const sizeStyles = css`
@@ -83,9 +83,11 @@ const fullWidthStyles = css`
       display: flex;
       width: 100%;
       justify-content: center;
+      padding-left: 0;
+      padding-right: 0;
       &:not(:first-child) {
         margin-left: 0;
-        margin-top: 1rem;
+        margin-top: 1.6rem;
       }
     `}
 `;
@@ -99,8 +101,8 @@ const StyledAnchor = styled.a`
   color: white;
   font-weight: bold;
   cursor: pointer;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding-left: 1.6rem;
+  padding-right: 1.6rem;
   align-items: center;
 
   /* 크기 */
@@ -111,7 +113,7 @@ const StyledAnchor = styled.a`
 
   /* 기타 */
   &:not(:first-child) {
-    margin-left: 1rem;
+    margin-left: 1.6rem;
   }
 
   ${fullWidthStyles}
