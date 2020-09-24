@@ -2,7 +2,12 @@ import styled from "styled-components";
 import Button from "./Button";
 import Checkbox from "./Checkbox";
 import LabelInput from "./LabelInput";
-import { useLoginMutation, useRegisterMutation } from "../generated/graphql";
+import {
+  MeQuery,
+  MeDocument,
+  useLoginMutation,
+  useRegisterMutation,
+} from "../generated/graphql";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { setAccessToken } from "../lib/accessToken";
@@ -32,7 +37,20 @@ const RegisterForm = (props) => {
       variables: { email, password, username },
     });
     if (registerResponse && registerResponse.data) {
-      const loginResponse = await login({ variables: { email, password } });
+      const loginResponse = await login({
+        variables: { email, password },
+        update: (cache, { data }) => {
+          if (!data) {
+            return;
+          }
+          cache.writeQuery<MeQuery>({
+            query: MeDocument,
+            data: {
+              me: data.login.user,
+            },
+          });
+        },
+      });
       if (loginResponse && loginResponse.data) {
         setAccessToken(loginResponse.data.login.accessToken);
         router.push("/");
