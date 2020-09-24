@@ -35,14 +35,25 @@ interface LabelInputProps extends InputHTMLAttributes<HTMLInputElement> {
   placeholder?: string;
 }
 
-const LabelInput = ({ type, label, placeholder }: LabelInputProps) => {
+const LabelInput = ({
+  value,
+  onChange,
+  type,
+  label,
+  placeholder,
+}: LabelInputProps) => {
   return (
     <Block>
       <Label>
         <Korean>{label && label.split(" ")[0]}</Korean>
         <English>{label && label.split(" ")[1]}</English>
       </Label>
-      <Input type={type} placeholder={placeholder}></Input>
+      <Input
+        value={value}
+        onChange={onChange}
+        type={type}
+        placeholder={placeholder}
+      ></Input>
     </Block>
   );
 };

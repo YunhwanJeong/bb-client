@@ -1,9 +1,7 @@
 import styled from "styled-components";
 import Anchor from "../Anchor";
-import Button from "../Button";
-import Checkbox from "../Checkbox";
 import Copyright from "../Copyright";
-import LabelInput from "../LabelInput";
+import RegisterForm from "../RegisterForm";
 
 const Container = styled.section`
   height: 100%;
@@ -46,22 +44,6 @@ const DividerText = styled.span`
   font-size: 1.5rem;
   font-weight: 500;
 `;
-const Form = styled.form`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  & > *:not(:first-child) {
-    margin-top: 1.8rem;
-  }
-`;
-const PolicyText = styled.div`
-  font-family: "Gmarket Sans";
-  align-self: flex-start;
-  font-size: 1.1rem;
-  line-height: 1.3;
-`;
 const LoginText = styled.div`
   font-size: 1.2rem;
   line-height: 1.3;
@@ -80,29 +62,7 @@ const AuthMain = ({ page }: { page: string }) => {
           <DividerText>또는</DividerText>
           <Hr />
         </Divider>
-        <Form>
-          <LabelInput
-            type="email"
-            label="이메일 Email"
-            placeholder="buzzerbeater@google.com"
-          />
-          <LabelInput
-            type="password"
-            label="비밀번호 Password"
-            placeholder="비밀번호"
-          />
-          <LabelInput label="이름 Username" placeholder="Buzzer Beater" />
-          <Checkbox>
-            Buzzer Beater의 최신 소식 및 개발자 포트폴리오 소개를 메일로
-            받겠습니다.
-          </Checkbox>
-          <Checkbox>
-            Buzzer Beater&nbsp;<a>서비스 약관</a>에 동의합니다.
-          </Checkbox>
-          <Button size="large" fullWidth>
-            회원가입
-          </Button>
-        </Form>
+        <RegisterForm />
         <LoginText>
           이미 계정이 있어요! <a>로그인</a>
         </LoginText>
