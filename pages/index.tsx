@@ -2,6 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import styled from "styled-components";
 import Anchor from "../components/Anchor";
+import { withApollo } from "../lib/withApollo";
 
 const AppBlock = styled.div`
   width: 512px;
@@ -29,4 +30,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default withApollo({ ssr: true })(Home);
