@@ -2,14 +2,19 @@ import Head from "next/head";
 import Link from "next/link";
 import styled from "styled-components";
 import Anchor from "../components/Anchor";
+import AuthSocialButton from "../components/auth/AuthSocialButton";
 import { withApollo } from "../lib/withApollo";
 
 const AppBlock = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 512px;
   margin: 0 auto;
   margin-top: 4rem;
   border: 1px solid black;
   padding: 1rem;
+  background-color: lightblue;
 `;
 
 const Home = () => {
@@ -19,9 +24,12 @@ const Home = () => {
         <title>Buzzer Beater</title>
       </Head>
       <AppBlock>
-        <Anchor color="gray7" outline={false}>
-          Sign In
-        </Anchor>
+        <AuthSocialButton provider="google" />
+        <Link href="/signin" passHref>
+          <Anchor color="gray7" outline={false}>
+            Sign In
+          </Anchor>
+        </Link>
         <Link href="/signup" passHref>
           <Anchor>Sign Up</Anchor>
         </Link>
