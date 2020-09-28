@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Anchor from "../Anchor";
 import Copyright from "../Copyright";
 import RegisterForm from "../RegisterForm";
+import AuthSocialButton from "./AuthSocialButton";
 
 const Container = styled.section`
   height: 100%;
@@ -54,9 +55,9 @@ const AuthMain = ({ page }: { page: string }) => {
     <Container>
       <Block>
         <Header>지금 바로 Buzzer Beater에 가입하세요!</Header>
-        <Anchor color="gray7" outline fullWidth>
+        <AuthSocialButton provider="google" fullWidth>
           Google로 가입하기
-        </Anchor>
+        </AuthSocialButton>
         <Divider>
           <Hr />
           <DividerText>또는</DividerText>
