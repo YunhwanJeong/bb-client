@@ -4,7 +4,7 @@ import AuthMain from "../components/auth/AuthMain";
 import AuthSide from "../components/auth/AuthSide";
 import { withApollo } from "../lib/withApollo";
 
-const SignUp = (props) => {
+const SignUp = () => {
   return (
     <>
       <Head>

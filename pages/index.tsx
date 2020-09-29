@@ -25,9 +25,9 @@ const Home = () => {
       </Head>
       <AppBlock>
         <AuthSocialButton provider="google" />
-        <Link href="/signin" passHref>
+        <Link href="/login" passHref>
           <Anchor color="gray7" outline={false}>
-            Sign In
+            Login
           </Anchor>
         </Link>
         <Link href="/signup" passHref>
