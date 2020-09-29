@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import Link from "next/link";
 import Copyright from "../Copyright";
-import RegisterForm from "../RegisterForm";
+import AuthForm from "./AuthForm";
 import AuthSocialButton from "./AuthSocialButton";
+import ForgotPasswordForm from "./ForgotPasswordForm";
 
 const pages = {
   signup: {
@@ -73,22 +74,28 @@ const AuthMain = ({ page }: { page: string }) => {
   return (
     <Container>
       <Block>
-        <Header>{pages[page].header}</Header>
-        <AuthSocialButton provider="google" fullWidth>
-          Google로 가입하기
-        </AuthSocialButton>
-        <Divider>
-          <Hr />
-          <DividerText>또는</DividerText>
-          <Hr />
-        </Divider>
-        <RegisterForm page={page} />
-        <LinkText>
-          {pages[page].linkText}
-          <Link href={pages[page].href}>
-            <a>{page === "signup" ? "로그인" : "회원가입"}</a>
-          </Link>
-        </LinkText>
+        {page === "forgot-password" ? (
+          <ForgotPasswordForm />
+        ) : (
+          <>
+            <Header>{pages[page].header}</Header>
+            <AuthSocialButton provider="google" fullWidth>
+              Google로 가입하기
+            </AuthSocialButton>
+            <Divider>
+              <Hr />
+              <DividerText>또는</DividerText>
+              <Hr />
+            </Divider>
+            <AuthForm page={page} />
+            <LinkText>
+              {pages[page].linkText}
+              <Link href={pages[page].href}>
+                <a>{page === "signup" ? "로그인" : "회원가입"}</a>
+              </Link>
+            </LinkText>
+          </>
+        )}
         <Copyright />
       </Block>
     </Container>

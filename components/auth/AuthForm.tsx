@@ -1,18 +1,19 @@
 import styled from "styled-components";
-import Button from "./Button";
-import Checkbox from "./Checkbox";
-import LabelInput from "./LabelInput";
+import Link from "next/link";
+import Button from "../Button";
+import Checkbox from "../Checkbox";
+import LabelInput from "../LabelInput";
 import {
   MeQuery,
   MeDocument,
   useLoginMutation,
   useRegisterMutation,
-} from "../generated/graphql";
+} from "../../generated/graphql";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { setAccessToken } from "../lib/accessToken";
+import { setAccessToken } from "../../lib/accessToken";
 
-const StyledRegisterForm = styled.form`
+const StyledAuthForm = styled.form`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -22,8 +23,16 @@ const StyledRegisterForm = styled.form`
     margin-top: 1.8rem;
   }
 `;
+const ForgotPasswordLink = styled.a`
+  align-self: flex-start;
+  font-size: 1.2rem;
+  line-height: 1.3;
+  font-weight: 200;
+  cursor: pointer;
+  color: ${({ theme }) => theme.palette.gray6};
+`;
 
-const RegisterForm = ({ page }: { page: string }) => {
+const AuthForm = ({ page }: { page: string }) => {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,12 +40,20 @@ const RegisterForm = ({ page }: { page: string }) => {
   const [register] = useRegisterMutation();
   const [login] = useLoginMutation();
 
-  const handleRegister = async (e) => {
+  const handleSubmit = async (e) => {
+    let isRegistered = true;
     e.preventDefault();
-    const registerResponse = await register({
-      variables: { email, password, username },
-    });
-    if (registerResponse && registerResponse.data) {
+
+    if (page === "signup") {
+      const registerResponse = await register({
+        variables: { email, password, username },
+      });
+      if (!registerResponse || !registerResponse.data) {
+        isRegistered = false;
+      }
+    }
+
+    if (isRegistered) {
       const loginResponse = await login({
         variables: { email, password },
         update: (cache, { data }) => {
@@ -59,7 +76,7 @@ const RegisterForm = ({ page }: { page: string }) => {
   };
 
   return (
-    <StyledRegisterForm onSubmit={handleRegister}>
+    <StyledAuthForm onSubmit={handleSubmit}>
       <LabelInput
         value={email}
         onChange={(e) => setEmail(e.target.value)}
@@ -91,11 +108,16 @@ const RegisterForm = ({ page }: { page: string }) => {
           </Checkbox>
         </>
       ) : null}
+      {page === "login" ? (
+        <Link href="/forgot-password">
+          <ForgotPasswordLink>계정을 잊으셨나요?</ForgotPasswordLink>
+        </Link>
+      ) : null}
       <Button size="large" fullWidth>
         {page === "signup" ? "회원가입" : "로그인"}
       </Button>
-    </StyledRegisterForm>
+    </StyledAuthForm>
   );
 };
 
-export default RegisterForm;
+export default AuthForm;
