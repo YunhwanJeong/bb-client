@@ -2,6 +2,8 @@ import styled from "styled-components";
 
 const StyledCopyright = styled.p`
   font-family: "Maven-pro";
+  position: absolute;
+  bottom: 31px;
 `;
 
 const Copyright = () => {
