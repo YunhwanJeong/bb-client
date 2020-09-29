@@ -1,8 +1,21 @@
 import styled from "styled-components";
-import Anchor from "../Anchor";
+import Link from "next/link";
 import Copyright from "../Copyright";
 import RegisterForm from "../RegisterForm";
 import AuthSocialButton from "./AuthSocialButton";
+
+const pages = {
+  signup: {
+    header: "지금 바로 Buzzer Beater에 가입하세요!",
+    linkText: "이미 계정이 있어요! ",
+    href: "/login",
+  },
+  login: {
+    header: "Buzzer Beater 로그인",
+    linkText: "신규 사용자예요! ",
+    href: "/signup",
+  },
+};
 
 const Container = styled.section`
   height: 100%;
@@ -26,6 +39,7 @@ const Header = styled.h1`
   font-size: 2.5rem;
   line-height: 0.64;
   font-family: "Black Han Sans", sans-serif;
+  align-self: flex-start;
 `;
 const Divider = styled.div`
   display: flex;
@@ -45,16 +59,21 @@ const DividerText = styled.span`
   font-size: 1.5rem;
   font-weight: 500;
 `;
-const LoginText = styled.div`
+const LinkText = styled.div`
   font-size: 1.2rem;
   line-height: 1.3;
+  a {
+    font-weight: 700;
+    color: ${({ theme }) => theme.palette.blue};
+    text-decoration-line: underline;
+  }
 `;
 
 const AuthMain = ({ page }: { page: string }) => {
   return (
     <Container>
       <Block>
-        <Header>지금 바로 Buzzer Beater에 가입하세요!</Header>
+        <Header>{pages[page].header}</Header>
         <AuthSocialButton provider="google" fullWidth>
           Google로 가입하기
         </AuthSocialButton>
@@ -63,10 +82,13 @@ const AuthMain = ({ page }: { page: string }) => {
           <DividerText>또는</DividerText>
           <Hr />
         </Divider>
-        <RegisterForm />
-        <LoginText>
-          이미 계정이 있어요! <a>로그인</a>
-        </LoginText>
+        <RegisterForm page={page} />
+        <LinkText>
+          {pages[page].linkText}
+          <Link href={pages[page].href}>
+            <a>{page === "signup" ? "로그인" : "회원가입"}</a>
+          </Link>
+        </LinkText>
         <Copyright />
       </Block>
     </Container>

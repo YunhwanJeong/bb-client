@@ -23,7 +23,7 @@ const StyledRegisterForm = styled.form`
   }
 `;
 
-const RegisterForm = (props) => {
+const RegisterForm = ({ page }: { page: string }) => {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -74,20 +74,25 @@ const RegisterForm = (props) => {
         label="비밀번호 Password"
         placeholder="비밀번호"
       />
-      <LabelInput
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        label="이름 Username"
-        placeholder="Buzzer Beater"
-      />
-      <Checkbox>
-        Buzzer Beater의 최신 소식 및 개발자 포트폴리오 소개를 메일로 받겠습니다.
-      </Checkbox>
-      <Checkbox>
-        Buzzer Beater&nbsp;<a>서비스 약관</a>에 동의합니다.
-      </Checkbox>
+      {page === "signup" ? (
+        <>
+          <LabelInput
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            label="이름 Username"
+            placeholder="Buzzer Beater"
+          />
+          <Checkbox>
+            Buzzer Beater의 최신 소식 및 개발자 포트폴리오 소개를 메일로
+            받겠습니다.
+          </Checkbox>
+          <Checkbox>
+            Buzzer Beater&nbsp;<a>서비스 약관</a>에 동의합니다.
+          </Checkbox>
+        </>
+      ) : null}
       <Button size="large" fullWidth>
-        회원가입
+        {page === "signup" ? "회원가입" : "로그인"}
       </Button>
     </StyledRegisterForm>
   );
