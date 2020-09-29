@@ -10,7 +10,7 @@ const StyledSideImg = styled.img`
   height: 100%;
 `;
 
-const AuthSide = ({ page }: { page: string }) => {
+const AuthSide = () => {
   return (
     <Container>
       <StyledSideImg src="https://source.unsplash.com/random" />

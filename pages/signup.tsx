@@ -12,7 +12,7 @@ const SignUp = () => {
       </Head>
       <AuthLayout>
         <AuthMain page="signup" />
-        <AuthSide page="signup" />
+        <AuthSide />
       </AuthLayout>
     </>
   );

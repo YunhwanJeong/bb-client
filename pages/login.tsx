@@ -12,7 +12,7 @@ const Login = () => {
       </Head>
       <AuthLayout>
         <AuthMain page="login" />
-        <AuthSide page="login" />
+        <AuthSide />
       </AuthLayout>
     </>
   );
