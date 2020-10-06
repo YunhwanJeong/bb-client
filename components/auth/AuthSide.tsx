@@ -5,7 +5,7 @@ const Container = styled.section`
   flex: 11.8;
   background: #f3f6fa;
 `;
-const StyledSideImg = styled.img`
+const Img = styled.img`
   width: 100%;
   height: 100%;
 `;
@@ -13,7 +13,7 @@ const StyledSideImg = styled.img`
 const AuthSide = () => {
   return (
     <Container>
-      <StyledSideImg src="https://source.unsplash.com/random" />
+      <Img src="https://source.unsplash.com/random" />
     </Container>
   );
 };
