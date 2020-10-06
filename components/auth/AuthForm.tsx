@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import Link from "next/link";
-import Button from "../Button";
-import Checkbox from "../Checkbox";
-import LabelInput from "../LabelInput";
+import Button from "../common/Button";
+import Checkbox from "../common/Checkbox";
+import LabelInput from "../common/LabelInput";
 import {
   MeQuery,
   MeDocument,

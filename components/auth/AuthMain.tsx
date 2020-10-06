@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Link from "next/link";
-import Copyright from "../Copyright";
+import Copyright from "../common/Copyright";
 import AuthForm from "./AuthForm";
 import AuthSocialButton from "./AuthSocialButton";
 import ForgotPasswordForm from "./ForgotPasswordForm";

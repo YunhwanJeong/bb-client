@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useState } from "react";
-import Button from "../Button";
+import Button from "../common/Button";
 
 const StyledForgotPasswordForm = styled.form`
   width: 100%;
