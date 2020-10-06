@@ -5,7 +5,7 @@ const StyledSearchBar = styled.div``;
 const SearchBar = () => {
   return (
     <StyledSearchBar>
-      <img src="../static/svg/icon-search.svg"></img>
+      <img src="/static/svg/icon-search.svg"></img>
     </StyledSearchBar>
   );
 };

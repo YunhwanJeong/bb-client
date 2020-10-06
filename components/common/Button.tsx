@@ -1,10 +1,9 @@
-import React from "react";
 import styled, { css } from "styled-components";
 import { lighten, darken } from "polished";
-import { AnchorHTMLAttributes } from "react";
-import { theme } from "../lib/types";
+import { ButtonHTMLAttributes } from "react";
+import { theme } from "../../lib/types";
 
-const anchorSize = {
+const buttonSize = {
   large: {
     height: "4.8rem",
     fontSize: "1.5rem",
@@ -21,8 +20,8 @@ const anchorSize = {
 const sizeStyles = css`
   ${({ size }: { size: string }) =>
     css`
-      height: ${anchorSize[size].height};
-      font-size: ${anchorSize[size].fontSize};
+      height: ${buttonSize[size].height};
+      font-size: ${buttonSize[size].fontSize};
     `}
 `;
 
@@ -47,7 +46,7 @@ const colorStyles = css`
         css`
           color: ${selected};
           background: none;
-          border: 1px solid ${selected};
+          border: 2px solid ${selected};
           &:hover {
             background: ${lighten(0.1, selected)};
             color: white;
@@ -83,8 +82,6 @@ const fullWidthStyles = css`
       display: flex;
       width: 100%;
       justify-content: center;
-      padding-left: 0;
-      padding-right: 0;
       &:not(:first-child) {
         margin-left: 0;
         margin-top: 1.6rem;
@@ -92,12 +89,12 @@ const fullWidthStyles = css`
     `}
 `;
 
-const StyledAnchor = styled.a`
+const StyledButton = styled.button`
   /* 공통 */
   display: inline-flex;
   outline: none;
   border: none;
-  border-radius: 4px;
+  border-radius: 10px;
   color: white;
   font-weight: bold;
   cursor: pointer;
@@ -119,7 +116,7 @@ const StyledAnchor = styled.a`
   ${fullWidthStyles}
 `;
 
-interface AnchorProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children?: React.ReactNode;
   color?: string;
   size?: string;
@@ -127,40 +124,30 @@ interface AnchorProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   fullWidth?: boolean;
 }
 
-const Anchor = React.forwardRef(
-  (
-    {
-      children,
-      color,
-      size,
-      outline,
-      fullWidth,
-      onClick,
-      href,
-      ...rest
-    }: AnchorProps,
-    ref
-  ) => {
-    return (
-      <StyledAnchor
-        href={href}
-        onClick={onClick}
-        ref={ref}
-        color={color}
-        size={size}
-        outline={outline}
-        fullWidth={fullWidth}
-        {...rest}
-      >
-        {children}
-      </StyledAnchor>
-    );
-  }
-);
+const Button = ({
+  children,
+  color,
+  size,
+  outline,
+  fullWidth,
+  ...rest
+}: ButtonProps) => {
+  return (
+    <StyledButton
+      color={color}
+      size={size}
+      outline={outline}
+      fullWidth={fullWidth}
+      {...rest}
+    >
+      {children}
+    </StyledButton>
+  );
+};
 
-Anchor.defaultProps = {
+Button.defaultProps = {
   color: "blue",
   size: "medium",
 };
 
-export default Anchor;
+export default Button;
