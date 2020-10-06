@@ -4,7 +4,7 @@ import { AnchorHTMLAttributes } from "react";
 
 const providers = {
   google: {
-    src: "../../static/svg/icon-google.svg",
+    src: "/static/svg/icon-google.svg",
   },
 };
 
