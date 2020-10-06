@@ -39,6 +39,9 @@ const Item = styled.li`
   &:nth-child(4) {
     margin-top: 1.8rem;
   }
+  &:hover {
+    background-color: ${({ theme }) => theme.palette.gray1};
+  }
 `;
 const Divider = styled.hr`
   width: 100%;
