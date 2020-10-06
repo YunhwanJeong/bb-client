@@ -1,10 +1,7 @@
 import styled from "styled-components";
-import Link from "next/link";
-import Anchor from "../components/Anchor";
-import AuthSocialButton from "../components/auth/AuthSocialButton";
 import { lighten } from "polished";
-import Logo from "./Logo";
-import SearchBar from "./SearchBar";
+import Logo from "./common/Logo";
+import NavActions from "./NavActions";
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -28,16 +25,7 @@ const Header = () => {
     <StyledHeader>
       <Block>
         <Logo />
-        <SearchBar />
-        <AuthSocialButton provider="google" />
-        <Link href="/login" passHref>
-          <Anchor color="gray7" outline={false}>
-            Login
-          </Anchor>
-        </Link>
-        <Link href="/signup" passHref>
-          <Anchor>Sign Up</Anchor>
-        </Link>
+        <NavActions />
       </Block>
     </StyledHeader>
   );
