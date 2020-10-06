@@ -10,8 +10,7 @@ import { TokenRefreshLink } from "apollo-link-token-refresh";
 import jwt_decode from "jwt-decode";
 import { getAccessToken, setAccessToken } from "./accessToken";
 import createWithApollo from "./createWithApollo";
-
-export const isServer = () => typeof window === "undefined";
+import { isServer } from "./isServer";
 
 const createClient = (ctx: NextPageContext, serverAccessToken: string) => {
   const tokenRefreshMiddleware = new TokenRefreshLink({
