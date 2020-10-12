@@ -9,20 +9,25 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  /** The javascript `Date` as string. Type represents date and time as the ISO Date string. */
+  DateTime: any;
 };
 
 export type Query = {
   __typename?: 'Query';
-  users: Array<User>;
-  me?: Maybe<User>;
+  members: Array<Member>;
+  me?: Maybe<Member>;
 };
 
-export type User = {
-  __typename?: 'User';
-  id: Scalars['Int'];
+export type Member = {
+  __typename?: 'Member';
+  id: Scalars['ID'];
   username: Scalars['String'];
   email: Scalars['String'];
+  created_at: Scalars['DateTime'];
+  updated_at: Scalars['DateTime'];
 };
+
 
 export type Mutation = {
   __typename?: 'Mutation';
@@ -46,13 +51,13 @@ export type MutationLoginArgs = {
 
 
 export type MutationRevokeTokenArgs = {
-  userId: Scalars['Int'];
+  memberId: Scalars['String'];
 };
 
 export type LoginResponse = {
   __typename?: 'LoginResponse';
   accessToken: Scalars['String'];
-  user: User;
+  member: Member;
 };
 
 export type LoginMutationVariables = Exact<{
@@ -66,9 +71,9 @@ export type LoginMutation = (
   & { login: (
     { __typename?: 'LoginResponse' }
     & Pick<LoginResponse, 'accessToken'>
-    & { user: (
-      { __typename?: 'User' }
-      & Pick<User, 'id' | 'email' | 'username'>
+    & { member: (
+      { __typename?: 'Member' }
+      & Pick<Member, 'id' | 'email' | 'username'>
     ) }
   ) }
 );
@@ -86,7 +91,7 @@ export type RegisterMutation = (
 );
 
 export type RevokeTokenMutationVariables = Exact<{
-  userId: Scalars['Int'];
+  memberId: Scalars['String'];
 }>;
 
 
@@ -101,19 +106,19 @@ export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 export type MeQuery = (
   { __typename?: 'Query' }
   & { me?: Maybe<(
-    { __typename?: 'User' }
-    & Pick<User, 'id' | 'email' | 'username'>
+    { __typename?: 'Member' }
+    & Pick<Member, 'id' | 'email' | 'username'>
   )> }
 );
 
-export type UsersQueryVariables = Exact<{ [key: string]: never; }>;
+export type MembersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type UsersQuery = (
+export type MembersQuery = (
   { __typename?: 'Query' }
-  & { users: Array<(
-    { __typename?: 'User' }
-    & Pick<User, 'id' | 'username' | 'email'>
+  & { members: Array<(
+    { __typename?: 'Member' }
+    & Pick<Member, 'id' | 'username' | 'email'>
   )> }
 );
 
@@ -122,7 +127,7 @@ export const LoginDocument = gql`
     mutation Login($email: String!, $password: String!) {
   login(email: $email, password: $password) {
     accessToken
-    user {
+    member {
       id
       email
       username
@@ -189,8 +194,8 @@ export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
 export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
 export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
 export const RevokeTokenDocument = gql`
-    mutation RevokeToken($userId: Int!) {
-  revokeToken(userId: $userId)
+    mutation RevokeToken($memberId: String!) {
+  revokeToken(memberId: $memberId)
 }
     `;
 export type RevokeTokenMutationFn = Apollo.MutationFunction<RevokeTokenMutation, RevokeTokenMutationVariables>;
@@ -208,7 +213,7 @@ export type RevokeTokenMutationFn = Apollo.MutationFunction<RevokeTokenMutation,
  * @example
  * const [revokeTokenMutation, { data, loading, error }] = useRevokeTokenMutation({
  *   variables: {
- *      userId: // value for 'userId'
+ *      memberId: // value for 'memberId'
  *   },
  * });
  */
@@ -252,9 +257,9 @@ export function useMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MeQuery
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
-export const UsersDocument = gql`
-    query Users {
-  users {
+export const MembersDocument = gql`
+    query Members {
+  members {
     id
     username
     email
@@ -263,26 +268,26 @@ export const UsersDocument = gql`
     `;
 
 /**
- * __useUsersQuery__
+ * __useMembersQuery__
  *
- * To run a query within a React component, call `useUsersQuery` and pass it any options that fit your needs.
- * When your component renders, `useUsersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useMembersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMembersQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useUsersQuery({
+ * const { data, loading, error } = useMembersQuery({
  *   variables: {
  *   },
  * });
  */
-export function useUsersQuery(baseOptions?: Apollo.QueryHookOptions<UsersQuery, UsersQueryVariables>) {
-        return Apollo.useQuery<UsersQuery, UsersQueryVariables>(UsersDocument, baseOptions);
+export function useMembersQuery(baseOptions?: Apollo.QueryHookOptions<MembersQuery, MembersQueryVariables>) {
+        return Apollo.useQuery<MembersQuery, MembersQueryVariables>(MembersDocument, baseOptions);
       }
-export function useUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UsersQuery, UsersQueryVariables>) {
-          return Apollo.useLazyQuery<UsersQuery, UsersQueryVariables>(UsersDocument, baseOptions);
+export function useMembersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MembersQuery, MembersQueryVariables>) {
+          return Apollo.useLazyQuery<MembersQuery, MembersQueryVariables>(MembersDocument, baseOptions);
         }
-export type UsersQueryHookResult = ReturnType<typeof useUsersQuery>;
-export type UsersLazyQueryHookResult = ReturnType<typeof useUsersLazyQuery>;
-export type UsersQueryResult = Apollo.QueryResult<UsersQuery, UsersQueryVariables>;
+export type MembersQueryHookResult = ReturnType<typeof useMembersQuery>;
+export type MembersLazyQueryHookResult = ReturnType<typeof useMembersLazyQuery>;
+export type MembersQueryResult = Apollo.QueryResult<MembersQuery, MembersQueryVariables>;

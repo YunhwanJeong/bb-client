@@ -63,7 +63,7 @@ const AuthForm = ({ page }: { page: string }) => {
           cache.writeQuery<MeQuery>({
             query: MeDocument,
             data: {
-              me: data.login.user,
+              me: data.login.member,
             },
           });
         },

@@ -27,13 +27,13 @@ const NavActions = () => {
   });
   const [revokeToken, { client }] = useRevokeTokenMutation();
   const logout = async () => {
-    const currentUser = client.cache.readQuery<MeQuery>({
+    const currentMember = client.cache.readQuery<MeQuery>({
       query: MeDocument,
     });
-    if (currentUser) {
+    if (currentMember) {
       await revokeToken({
         variables: {
-          userId: currentUser.me.id,
+          memberId: currentMember.me.id,
         },
         update: async (_cache, { data }) => {
           if (data?.revokeToken) {

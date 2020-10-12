@@ -1,5 +1,5 @@
-query Users {
-  users {
+query Members {
+  members {
     id
     username
     email
