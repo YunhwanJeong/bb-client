@@ -1,7 +1,0 @@
-query Members {
-  members {
-    id
-    username
-    email
-  }
-}
