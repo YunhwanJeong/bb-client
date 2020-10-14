@@ -15,7 +15,6 @@ export type Scalars = {
 
 export type Query = {
   __typename?: 'Query';
-  members: Array<Member>;
   me?: Maybe<Member>;
 };
 
@@ -26,8 +25,28 @@ export type Member = {
   email: Scalars['String'];
   created_at: Scalars['DateTime'];
   updated_at: Scalars['DateTime'];
+  profile?: Maybe<MemberProfile>;
 };
 
+
+export type MemberProfile = {
+  __typename?: 'MemberProfile';
+  id: Scalars['ID'];
+  occupation?: Maybe<Scalars['String']>;
+  company?: Maybe<Scalars['String']>;
+  avatar_url?: Maybe<Scalars['String']>;
+  banner_url?: Maybe<Scalars['String']>;
+  homepage_url?: Maybe<Scalars['String']>;
+  github_url?: Maybe<Scalars['String']>;
+  linkedin_url?: Maybe<Scalars['String']>;
+  blog_url?: Maybe<Scalars['String']>;
+  rocketpunch_url?: Maybe<Scalars['String']>;
+  sns_url?: Maybe<Scalars['String']>;
+  followers: Scalars['Int'];
+  following: Scalars['Int'];
+  created_at: Scalars['DateTime'];
+  updated_at: Scalars['DateTime'];
+};
 
 export type Mutation = {
   __typename?: 'Mutation';
@@ -108,17 +127,10 @@ export type MeQuery = (
   & { me?: Maybe<(
     { __typename?: 'Member' }
     & Pick<Member, 'id' | 'email' | 'username'>
-  )> }
-);
-
-export type MembersQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type MembersQuery = (
-  { __typename?: 'Query' }
-  & { members: Array<(
-    { __typename?: 'Member' }
-    & Pick<Member, 'id' | 'username' | 'email'>
+    & { profile?: Maybe<(
+      { __typename?: 'MemberProfile' }
+      & Pick<MemberProfile, 'avatar_url'>
+    )> }
   )> }
 );
 
@@ -229,6 +241,9 @@ export const MeDocument = gql`
     id
     email
     username
+    profile {
+      avatar_url
+    }
   }
 }
     `;
@@ -257,37 +272,3 @@ export function useMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MeQuery
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
-export const MembersDocument = gql`
-    query Members {
-  members {
-    id
-    username
-    email
-  }
-}
-    `;
-
-/**
- * __useMembersQuery__
- *
- * To run a query within a React component, call `useMembersQuery` and pass it any options that fit your needs.
- * When your component renders, `useMembersQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useMembersQuery({
- *   variables: {
- *   },
- * });
- */
-export function useMembersQuery(baseOptions?: Apollo.QueryHookOptions<MembersQuery, MembersQueryVariables>) {
-        return Apollo.useQuery<MembersQuery, MembersQueryVariables>(MembersDocument, baseOptions);
-      }
-export function useMembersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MembersQuery, MembersQueryVariables>) {
-          return Apollo.useLazyQuery<MembersQuery, MembersQueryVariables>(MembersDocument, baseOptions);
-        }
-export type MembersQueryHookResult = ReturnType<typeof useMembersQuery>;
-export type MembersLazyQueryHookResult = ReturnType<typeof useMembersLazyQuery>;
-export type MembersQueryResult = Apollo.QueryResult<MembersQuery, MembersQueryVariables>;

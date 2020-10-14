@@ -3,5 +3,8 @@ query Me {
     id
     email
     username
+    profile {
+      avatar_url
+    }
   }
 }
