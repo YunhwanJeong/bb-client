@@ -5,6 +5,9 @@ mutation Login($email: String!, $password: String!) {
       id
       email
       username
+      profile {
+        avatar_url
+      }
     }
   }
 }
