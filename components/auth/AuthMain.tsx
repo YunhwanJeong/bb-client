@@ -4,6 +4,8 @@ import Copyright from "../common/Copyright";
 import AuthForm from "./AuthForm";
 import AuthSocialButton from "./AuthSocialButton";
 import ForgotPasswordForm from "./ForgotPasswordForm";
+import { LoginContext } from "../../lib/utils/loginContext";
+import { SetLoggedIn } from "../../pages/_app";
 
 const pages = {
   signup: {
@@ -87,7 +89,11 @@ const AuthMain = ({ page }: { page: string }) => {
               <DividerText>또는</DividerText>
               <Hr />
             </Divider>
-            <AuthForm page={page} />
+            <LoginContext.Consumer>
+              {({ setLoggedIn }: { setLoggedIn: SetLoggedIn }) => (
+                <AuthForm page={page} setLoggedIn={setLoggedIn} />
+              )}
+            </LoginContext.Consumer>
             <LinkText>
               {pages[page].linkText}
               <Link href={pages[page].href}>

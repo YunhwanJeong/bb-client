@@ -3,15 +3,11 @@ import Link from "next/link";
 import Button from "../common/Button";
 import Checkbox from "../common/Checkbox";
 import LabelInput from "../common/LabelInput";
-import {
-  MeQuery,
-  MeDocument,
-  useLoginMutation,
-  useRegisterMutation,
-} from "../../generated/graphql";
+import { useLoginMutation, useRegisterMutation } from "../../generated/graphql";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { setAccessToken } from "../../lib/accessToken";
+import { setAccessToken } from "../../lib/utils/accessToken";
+import { SetLoggedIn } from "../../pages/_app";
 
 const StyledAuthForm = styled.form`
   width: 100%;
@@ -32,7 +28,12 @@ const ForgotPasswordLink = styled.a`
   color: ${({ theme }) => theme.palette.gray6};
 `;
 
-const AuthForm = ({ page }: { page: string }) => {
+interface AuthFormProps {
+  page: string;
+  setLoggedIn: SetLoggedIn;
+}
+
+const AuthForm = ({ page, setLoggedIn }: AuthFormProps) => {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -56,20 +57,16 @@ const AuthForm = ({ page }: { page: string }) => {
     if (isRegistered) {
       const loginResponse = await login({
         variables: { email, password },
-        update: (cache, { data }) => {
+        fetchPolicy: "no-cache",
+        update: (_cache, { data }) => {
           if (!data) {
             return;
           }
-          cache.writeQuery<MeQuery>({
-            query: MeDocument,
-            data: {
-              me: data.login.member,
-            },
-          });
         },
       });
       if (loginResponse && loginResponse.data) {
         setAccessToken(loginResponse.data.login.accessToken);
+        setLoggedIn(loginResponse.data.login.member);
         router.push("/");
       }
     }
