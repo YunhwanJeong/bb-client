@@ -8,9 +8,9 @@ import { onError } from "@apollo/client/link/error";
 import { NextPageContext } from "next";
 import { TokenRefreshLink } from "apollo-link-token-refresh";
 import jwt_decode from "jwt-decode";
-import { getAccessToken, setAccessToken } from "./accessToken";
+import { getAccessToken, setAccessToken } from "../utils/accessToken";
 import createWithApollo from "./createWithApollo";
-import { isServer } from "./isServer";
+import { isServer } from "../utils/isServer";
 
 const createClient = (ctx: NextPageContext, serverAccessToken: string) => {
   const tokenRefreshMiddleware = new TokenRefreshLink({

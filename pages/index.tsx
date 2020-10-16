@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { withApollo } from "../lib/withApollo";
+import { withApollo } from "../lib/apollo/withApollo";
 import Header from "../components/Header";
 
 const Home = () => {
