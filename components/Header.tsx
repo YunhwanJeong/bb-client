@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { lighten } from "polished";
 import Logo from "./common/Logo";
 import NavActions from "./NavActions";
+import { LoginContext } from "../lib/utils/loginContext";
+import { LoginState, SetLoggedOut } from "../pages/_app";
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -25,7 +27,17 @@ const Header = () => {
     <StyledHeader>
       <Block>
         <Logo />
-        <NavActions />
+        <LoginContext.Consumer>
+          {({
+            loginState,
+            setLoggedOut,
+          }: {
+            loginState: LoginState;
+            setLoggedOut: SetLoggedOut;
+          }) => (
+            <NavActions loginState={loginState} setLoggedOut={setLoggedOut} />
+          )}
+        </LoginContext.Consumer>
       </Block>
     </StyledHeader>
   );

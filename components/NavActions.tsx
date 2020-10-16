@@ -1,16 +1,11 @@
 import styled from "styled-components";
 import { useRouter } from "next/router";
-import { useMeQuery } from "../generated/graphql";
-import {
-  MeDocument,
-  MeQuery,
-  useRevokeTokenMutation,
-} from "../generated/graphql";
-import { isServer } from "../lib/isServer";
-import { setAccessToken } from "../lib/accessToken";
+import { useRevokeTokenMutation } from "../generated/graphql";
+import { setAccessToken } from "../lib/utils/accessToken";
 import SearchBar from "./common/SearchBar";
 import Avatar from "./common/Avatar";
 import AuthButtonGroup from "./auth/AuthButtonGroup";
+import { LoginState, SetLoggedOut } from "../pages/_app";
 
 const Container = styled.div`
   height: 100%;
@@ -18,26 +13,26 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const NavActions = () => {
+interface NavActionsProps {
+  loginState: LoginState;
+  setLoggedOut: SetLoggedOut;
+}
+
+const NavActions = ({ loginState, setLoggedOut }: NavActionsProps) => {
+  const { loading, me } = loginState;
   const router = useRouter();
-  const { data, loading } = useMeQuery({
-    skip: isServer(),
-    fetchPolicy: "network-only",
-    errorPolicy: "all",
-  });
   const [revokeToken, { client }] = useRevokeTokenMutation();
+
   const logout = async () => {
-    const currentMember = client.cache.readQuery<MeQuery>({
-      query: MeDocument,
-    });
-    if (currentMember) {
+    if (me) {
       await revokeToken({
         variables: {
-          memberId: currentMember.me.id,
+          memberId: me.id,
         },
         update: async (_cache, { data }) => {
           if (data?.revokeToken) {
             setAccessToken("");
+            setLoggedOut();
             if (router.pathname !== "/") router.push("/");
             await client.resetStore();
           }
@@ -45,14 +40,26 @@ const NavActions = () => {
       });
     }
   };
-  if (loading) return null;
 
-  return (
-    <Container>
-      <SearchBar />
-      {data?.me ? <Avatar onClick={logout} /> : <AuthButtonGroup />}
-    </Container>
-  );
+  const setBody = () => {
+    if (loading) return null;
+    if (me === null) {
+      return (
+        <>
+          <SearchBar />
+          <AuthButtonGroup />
+        </>
+      );
+    }
+    return (
+      <>
+        <SearchBar />
+        <Avatar onClick={logout} />
+      </>
+    );
+  };
+
+  return <Container>{setBody()}</Container>;
 };
 
 export default NavActions;
